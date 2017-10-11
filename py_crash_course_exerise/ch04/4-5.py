@@ -12,7 +12,7 @@ print('min is {:d}'.format(min(nums)))
 
 start_time = time.time()
 
-sum=sum(nums)
+sum = sum(nums)
 
 end_time = time.time()
 
