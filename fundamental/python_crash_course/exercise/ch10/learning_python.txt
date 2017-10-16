@@ -1,0 +1,3 @@
+In Python you can creat web app
+In Python you can learn programming
+In Python you can learn data analysis skill
