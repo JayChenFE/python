@@ -6,3 +6,17 @@
 # 将这些代码放在一个try-except 代码块中，以便在文件不存在时捕获FileNotFound 错误，并打印一条友好的消息。
 # 将其中一个文件移到另一个地方，并确认except 代码块中的代码将正确地执行。
 
+filename = 'cat.txt'
+try:
+    print('CATS:')
+    with open(filename) as fs:
+        print(fs.read().rstrip())
+
+    # filename = 'dog.txt'
+    filename = 'dog1.txt'
+    print('\nDOGS:')
+    with open(filename) as fs:
+        print(fs.read().rstrip())
+
+except FileNotFoundError:
+    print('can not find ' + filename)
