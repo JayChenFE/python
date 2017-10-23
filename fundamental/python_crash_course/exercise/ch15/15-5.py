@@ -30,7 +30,7 @@ class RandomWalk():
             # Decide which direction to go, and how far to go in that direction.
 
             x_step = self.get_step(self, [1, -1], [0, 1, 2, 3, 4])
-            y_step = self.get_step(self, [1], [0, 1, 2, 3, 4,5])
+            y_step = self.get_step(self, [1], [0, 1, 2, 3, 4, 5])
 
             # Reject moves that go nowhere.
             if x_step == 0 and y_step == 0:
