@@ -1,0 +1,51 @@
+#17-1
+#  其他语言 ：
+# 修改python_repos.py中的API调用，使其在生成的图表中显示使用其他语言编写的最受欢迎的项目。
+# 请尝试语言JavaScript、Ruby、C、Java、Perl、#Haskell和Go等。
+
+import requests
+import pygal
+from pygal.style import LightColorizedStyle as LCS,LightenStyle as LS
+
+# Make an API call, and store the response.
+url = 'https://api.github.com/search/repositories?q=language:javascript&sort=stars'
+r = requests.get(url)
+print("Status code:",r.status_code)
+
+# Store API response in a variable.
+response_dict = r.json()
+print("Total repositories:",response_dict['total_count'])
+
+# Explore information about the repositories.
+repo_dicts = response_dict['items']
+
+names,plot_dicts = [],[]
+for repo_dict in repo_dicts:
+    names.append(repo_dict['name'])
+
+    plot_dict = {
+        'value': repo_dict['stargazers_count'],
+        'label': repo_dict['description'],
+        'xlink': repo_dict['html_url'],
+    }
+    plot_dicts.append(plot_dict)
+
+# Make visualization.
+my_style = LS('#333366',base_style=LCS)
+
+my_config = pygal.Config()
+my_config.x_label_rotation = 45
+my_config.show_legend = False
+my_config.title_font_size = 24
+my_config.label_font_size = 14
+my_config.major_label_font_size = 18
+my_config.truncate_label = 15
+my_config.show_y_guides = False
+my_config.width = 1000
+
+chart = pygal.Bar(my_config,style=my_style)
+chart.title = 'Most-Starred javascript Projects on GitHub'
+chart.x_labels = names
+
+chart.add('',plot_dicts)
+chart.render_to_file('javascript_repos.svg')
