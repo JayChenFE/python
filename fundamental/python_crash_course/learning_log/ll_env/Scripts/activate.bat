@@ -1,5 +1,5 @@
 @echo off
-set "VIRTUAL_ENV=F:\github_home\python\fundamental\python_crash_course\learning_log\ll_env"
+set "VIRTUAL_ENV=D:\github_base\language_learn\python\fundamental\python_crash_course\learning_log\ll_env"
 
 if not defined PROMPT (
     set "PROMPT=$P$G"

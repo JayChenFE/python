@@ -27,7 +27,7 @@ function global:deactivate ([switch]$NonDestructive) {
 
 deactivate -nondestructive
 
-$env:VIRTUAL_ENV="F:\github_home\python\fundamental\python_crash_course\learning_log\ll_env"
+$env:VIRTUAL_ENV="D:\github_base\language_learn\python\fundamental\python_crash_course\learning_log\ll_env"
 
 if (! $env:VIRTUAL_ENV_DISABLE_PROMPT) {
     # Set the prompt to include the env name
