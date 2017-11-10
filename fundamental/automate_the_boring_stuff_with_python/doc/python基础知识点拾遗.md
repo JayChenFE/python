@@ -242,6 +242,17 @@ False
 
     字典的`setdefault()`方法设定默认值
 
-    `dict_instance.setdefault(key,default_val)`
+    `dict_instance.setdefault(key,default_val)`返回该键的值
+
+16. 如果程序中导入`pprint `模块，就可以使用`pprint()`和`pformat()`函数，它们将“漂亮
+    打印”一个字典的字
+
+    如果希望得到漂亮打印的文本作为字符串，而不是显示在屏幕上，那就调用`pprint.pformat()`。<br>下面两行代码是等价的：
+
+    ```python
+    pprint.pprint(someDictionaryValue)
+    print(pprint.pformat(someDictionaryValue))
+    ```
 
     ​
+
