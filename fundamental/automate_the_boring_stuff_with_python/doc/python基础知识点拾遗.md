@@ -150,7 +150,7 @@ print('Four score and seven ' + \
 
 尝试对字符串中的一个字符重新赋值，将导致`TypeError` 错误:
 
-```python
+```
 >>> name = 'Zophie a cat'
 >>> name[7] = 'the'
 Traceback (most recent call last):
@@ -158,6 +158,8 @@ File "<pyshell#50>", line 1, in <module>
 name[7] = 'the'
 TypeError: 'str' object does not support item assignment
 ```
+
+
 
 字符串的正确方式，是使用切片和连接:
 
@@ -173,8 +175,14 @@ TypeError: 'str' object does not support item assignment
 
 11. 元组像字符串一样，是不可变的。元组不能让它们的值被修改、添加或删除。
 
+   ​
+
+   如果元组中只有一个值，你可以在括号内该值的后面跟上一个逗号，表明这种情况。<br>否则，Python 将认为，你只是在一个普通括号内输入了一个值。<br>逗号告诉Python，这是一个元组（不像其他编程语言，Python 接受列表或元组中最后表项后
+
+   面跟的逗号）
+
    ```python
-    >>> type('hello')
+   >>> type('hello')
     <class 'str'>
     >>> type(('hello'))
     <class 'str'>
@@ -182,4 +190,58 @@ TypeError: 'str' object does not support item assignment
     <class 'tuple'>
    ```
 
-     ​
+12.传递引用
+
+```python
+def eggs(someParameter):
+	someParameter.append('Hello')
+
+spam = [1, 2, 3]
+eggs(spam)
+print(spam)
+```
+
+输出
+
+```
+[1, 2, 3, 'Hello']
+```
+
+尽管`spam`和`someParameter` 包含了不同的引用，但它们都指向相同的列表
+
+13.`copy `模块的`copy()`和`deepcopy()`函数
+
+- copy.copy浅拷贝
+- copy.deepcopy深拷贝
+
+14. 检查字典中是否存在键或值
+
+```python
+>>> spam = {'name': 'Zophie', 'age': 7}
+>>> 'name' in spam.keys()
+True
+>>> 'Zophie' in spam.values()
+True
+>>> 'color' in spam.keys()
+False
+>>> 'color' not in spam.keys()
+True
+>>> 'color' in spam
+False
+```
+
+`'color' in spam` 本质上是一个简写版本。相当于`'color'in spam.keys()`
+
+15. `get()`方法和`setdefault()`方法
+
+    ​
+
+    字典有一个`get()`方法，它有两个参数：要取得其值的键，以及如果该键不存在时，返回的备用值。
+
+    `dict_instance.get(key,default_val)`
+
+    字典的`setdefault()`方法设定默认值
+
+    `dict_instance.setdefault(key,default_val)`
+
+    ​
