@@ -2,7 +2,7 @@
 
 
 
-## python基础知识点拾遗
+# python基础知识点拾遗
 
 ## 控制流
 
@@ -386,3 +386,143 @@ pw.py需要一个参数account
 上面的命令保存为 pw.bat
 
 Win-R，再输入pw <account name>。
+
+## 正则
+
+`re.DOTALL` 作为`re.compile()` 的第二个参数，可以让句点字符匹配所有字符，包括换行字符。
+
+`re.IGNORECASE` 或`re.I` 忽略大小写
+
+### 用`sub()` 方法替换字符串
+
+`sub()`方法有两个参数:
+
+- 第一个参数是`替换内容` 
+- 第二个参数是`源字符串 `
+
+```python
+>>> namesRegex = re.compile(r'Agent \w+')
+>>> namesRegex.sub('CENSORED', 'Agent Alice gave the secret documents to Agent Bob.')
+'CENSORED gave the secret documents to CENSORED.'
+```
+
+`r'Agent \w+'` 代表`Anget加空格加任意单词` ,替换成`CENSORED`
+
+### `re.VERBOSE` 管理复杂表达式
+
+向`re.compile()`传入变量`re.VERBOSE` ，作为第二个参数.忽略正则表达式字符串中的空白符和注释
+
+```python
+phoneRegex = re.compile(r'''(
+(\d{3}|\(\d{3}\))? # area code
+(\s|-|\.)? # separator
+\d{3} # first 3 digits
+(\s|-|\.) # separator
+\d{4} # last 4 digits
+(\s*(ext|x|ext.)\s*\d{2,5})? # extension
+)''', re.VERBOSE)
+```
+
+请注意，前面的例子使用了三重引号('")，创建了一个多行字符串。这样就可以将正则表达式定义放在多行中，让它更可读。
+
+### 组合使用`re.IGNOREC ASE`、`re.DOTALL` 和`re.VERBOSE` 
+
+```python
+>>> someRegexValue = re.compile('foo', re.IGNORECASE | re.DOTALL)
+```
+
+```python
+>>> someRegexValue = re.compile('foo', re.IGNORECASE | re.DOTALL | re.VERBOSE)
+```
+
+使用管道字符`（|）` 将变量组合起来,同时使用`re.IGNOREC ASE`、`re.DOTALL` 和`re.VERBOSE` 
+
+### 正则表达式符号复习
+
+- `?` 匹配零次或一次前面的分组。
+
+- `*` 匹配零次或多次前面的分组。
+
+- ` +` 匹配一次或多次前面的分组。
+
+- `{n}` 匹配n 次前面的分组。
+
+- `{n,}`匹配`n`  次或更多前面的分组。
+
+- `{,m}` 匹配零次到`m ` 次前面的分组。
+
+- `{n,m}` 匹配至少`n `次、至多`m`  次前面的分组。
+
+- `{n,m}?`或`*?`或`+?` 对前面的分组进行非贪心匹配。
+
+- ` ^spam` 意味着字符串必须以`spam`  开始。
+
+- `spam$` 意味着字符串必须以`spam`  结束。
+
+- `.` 匹配所有字符，换行符除外。
+
+- `\d`、`\w` 和`\s`  分别匹配数字、单词和空格。
+
+- ` \D``\W `和`\S`  分别匹配出数字、单词和空格外的所有字符。
+
+- `[abc]` 匹配方括号内的任意字符（诸如a、b 或c）。
+
+- `[^abc] `匹配不在方括号内的任意字符。
+
+ ## 读写文件
+
+### 文件路径拼接
+
+```python
+>>> import os
+>>> os.path.join('usr', 'bin', 'spam')
+```
+
+### 当前工作目录
+
+```python
+>>> import os
+>>> os.getcwd()
+```
+
+### 切换目录
+
+```python
+os.chdir(path)
+```
+
+- 参数
+
+  - path: 要切换到的新路径。
+
+- 返回值
+
+  如果允许访问返回 `True`, 否则返回`False`。
+
+### 创建新文件夹
+
+`os.makedirs(path)`
+
+### 处理绝对路径和相对路径
+
+`os.path` 模块提供了一些函数，返回一个相对路径的绝对路径，以及检查给定的路径是否为绝对路径。
+
+- `os.path.abspath(path)`返回参数的绝对路径的字符串
+
+- `os.path.isabs(path)`如果参数是一个绝对路径，就返回`True` 
+
+- `os.path.relpath(path, start)`将返回从`start` 路径到`path` 的相对路径的字符串。如果没有提供`start`，就使用当前工作目录作为开始路径。
+
+  ```python
+  >>> import os
+  >>> os.path.relpath('C:\\Windows', 'C:\\')
+  'Windows'
+  >>> os.path.relpath('C:\\Windows', 'C:\\spam\\eggs')
+  '..\\..\\Windows'
+  >>> os.getcwd()
+  'C:\\Users\\JayChen'
+  >>>
+  ```
+
+  ​
+
