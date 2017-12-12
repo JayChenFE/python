@@ -544,10 +544,52 @@ os.path.isfile(path)
 os.path.isdir(path)
 ```
 
-## 文件读写
+### 文件读写步骤
 
 在Python 中，读写文件有3 个步骤：
 
 1. 调用open()函数，返回一个File 对象。
 2. 调用File 对象的read()或write()方法。
 3. 调用File 对象的close()方法，关闭该文件。
+
+### 用shelve 模块保存变量
+
+利用shelve 模块，你可以将Python 程序中的变量保存到二进制的shelf 文件中
+
+```python
+>>> import shelve
+>>> shelfFile = shelve.open('mydata')
+>>> cats = ['Zophie', 'Pooka', 'Simon']
+>>> shelfFile['cats'] = cats
+>>> shelfFile.close()
+```
+
+>Windows 上运行前面的代码，你会看到在当前工作目录下有3 个新文件：mydata.bak、mydata.dat 和mydata.dir。
+>
+>在OS X 上，只会创建一个mydata.db 文件。
+
+shelf 值不必用读模式或写模式打开，因为它们在打开后，既能读又能写。
+
+```python
+>>> shelfFile = shelve.open('mydata')
+>>> type(shelfFile)
+<class 'shelve.DbfilenameShelf'>
+>>> shelfFile['cats']
+['Zophie', 'Pooka', 'Simon']
+>>> shelfFile.close()
+```
+
+### 用`pprint.pformat()` 函数保存变量
+
+```python
+>>> import pprint
+>>> cats = [{'name': 'Zophie', 'desc': 'chubby'}, {'name': 'Pooka', 'desc': 'fluffy'}]
+>>> pprint.pformat(cats)
+"[{'desc': 'chubby', 'name': 'Zophie'}, {'desc': 'fluffy', 'name': 'Pooka'}]"
+>>> fileObj = open('myCats.py', 'w')
+>>> fileObj.write('cats = ' + pprint.pformat(cats) + '\n')
+83
+>>> fileObj.close()
+```
+
+我们利用`pprint.pformat()` ，将`cats ` 中的列表返回为一个字符串,将该字符串写入一个文件，命名为`myCats.py` 。
