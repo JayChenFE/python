@@ -526,3 +526,28 @@ os.chdir(path)
 
   ​
 
+
+### 文件大小和文件夹内容
+
+```python
+# 返回path参数中文件的字节数
+os.path.getsize(path)
+# 返回文件名字符串的列表
+os.listdir(path)
+```
+
+### 检查
+
+```python
+os.path.exists(path)
+os.path.isfile(path)
+os.path.isdir(path)
+```
+
+## 文件读写
+
+在Python 中，读写文件有3 个步骤：
+
+1. 调用open()函数，返回一个File 对象。
+2. 调用File 对象的read()或write()方法。
+3. 调用File 对象的close()方法，关闭该文件。
