@@ -79,8 +79,7 @@ for quizNum in range(35):
         wrongAnswers = list(capitals.values())
         # 2. 删除正确的答案
         del wrongAnswers[wrongAnswers.index(correctAnswer)]
-        # 3. 选择3 个随机的值
-
+        # 3. 选择3个随机的值
         wrongAnswers = random.sample(wrongAnswers, 3)
         answerOptions = wrongAnswers + [correctAnswer]
         random.shuffle(answerOptions)
