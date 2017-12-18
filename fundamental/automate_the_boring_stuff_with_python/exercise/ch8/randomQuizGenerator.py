@@ -61,8 +61,8 @@ capitals = {
 # Generate 35 quiz files.
 for quizNum in range(35):
     # Create the quiz and answer key files.
-    quizFile = open('capitalsquiz%s.txt' % (quizNum + 1), 'w')
-    answerKeyFile = open('capitalsquiz_answers%s.txt' % (quizNum + 1), 'w')
+    quizFile = open('capitalsquiz\capitalsquiz%s.txt' % (quizNum + 1), 'w')
+    answerKeyFile = open('capitalsquiz\capitalsquiz_answers%s.txt' % (quizNum + 1), 'w')
     # Write out the header for the quiz.
     quizFile.write('Name:\n\nDate:\n\nPeriod:\n\n')
     quizFile.write((' ' * 20) + 'State Capitals Quiz (Form %s)' % (quizNum + 1))
@@ -81,10 +81,21 @@ for quizNum in range(35):
         del wrongAnswers[wrongAnswers.index(correctAnswer)]
         # 3. 选择3个随机的值
         wrongAnswers = random.sample(wrongAnswers, 3)
+        # 4.组合选项
         answerOptions = wrongAnswers + [correctAnswer]
+        # 5.打乱选项
         random.shuffle(answerOptions)
 
+        # Write the question and the answer options to the quiz file.
+        quizFile.write('%s. What is the capital of %s?\n' % (questionNum + 1,
+                                                             states[questionNum]))
+        for i in range(4):
+            quizFile.write(' %s. %s\n' % ('ABCD'[i], answerOptions[i]))
 
-# TODO: Write out the header for the quiz.
-# TODO: Shuffle the order of the states.
-# TODO: Loop through all 50 states, making a question for each
+        quizFile.write('\n')
+    # Write the answer key to a file.
+    answerKeyFile.write('%s. %s\n' % (questionNum + 1,
+                                      'ABCD'[answerOptions.index(correctAnswer)]))
+
+    quizFile.close()
+    answerKeyFile.close()
